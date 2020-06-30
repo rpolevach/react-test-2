@@ -1,0 +1,51 @@
+body {
+  background: #fafafa;
+}
+
+.login-form {
+  width: 510px;
+  height: 520px;
+  left: calc(50% - 510px / 2);
+  top: calc(50% - 520px / 2);
+  position: absolute;
+  background: #ffffff;
+  border-radius: 5px;
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+
+.login-form-button {
+  width: 176px;
+  height: 52px;
+  left: calc(50% - 176px / 2);
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.logo {
+  position: relative;
+  left: calc(50% - 88px / 2);
+  top: calc(50% - 88px / 2);
+  padding-bottom: 32px;
+  padding-top: 40px;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 42px;
+  font-size: 18px;
+}
+
+.form-input {
+  width: 334px;
+  height: 88px;
+  position: relative;
+  left: calc(50% - 334px / 2);
+  margin-bottom: 0;
+}
