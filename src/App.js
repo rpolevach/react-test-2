@@ -10,6 +10,7 @@ import Login from "./components/login/index";
 import Home from "./components/home/index";
 import Favourites from "./components/favourites";
 import Navbar from "./components/navbar";
+import Results from "./components/searchResult";
 
 const isAuth = () => {
   const token = localStorage.getItem("user");
@@ -63,6 +64,7 @@ const App = () => (
     <Switch>
       <AuthRoute exact path="/" component={Home} />
       <AuthRoute exact path="/fav" component={Favourites} />
+      <AuthRoute exact path="/results" component={Results} />
     </Switch>
   </Router>
 );

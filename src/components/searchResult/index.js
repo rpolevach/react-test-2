@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./styled/searchResults.css";
+
 const Results = () => {
   return (
     <div className="results">

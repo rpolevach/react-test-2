@@ -1,7 +1,14 @@
-import { SEARCH } from "./constants";
+import {
+  FETCH_VIDEOS_REQUEST,
+  FETCH_VIDEOS_SUCCESS,
+  FETCH_VIDEOS_FAILURE,
+} from "./constants";
 
-export interface Search {
-  type: typeof SEARCH;
+export interface GetVideos {
+  type:
+    | typeof FETCH_VIDEOS_REQUEST
+    | typeof FETCH_VIDEOS_SUCCESS
+    | typeof FETCH_VIDEOS_FAILURE;
 }
 
 export interface Video {
@@ -15,6 +22,6 @@ export interface VideosState {
   videos: Video[];
 }
 
-export type VideosActions = Search;
+export type VideosActions = GetVideos;
 
 export type AppActions = VideosActions;
