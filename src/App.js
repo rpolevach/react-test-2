@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./components/login/index";
-import Home from "./components/home";
+import Home from "./components/home/index";
 import Favourites from "./components/favourites";
 import Navbar from "./components/navbar";
 

@@ -1,0 +1,49 @@
+.home {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 47px;
+  bottom: 0px;
+}
+
+.home__search-container {
+  position: absolute;
+  width: 1040px;
+  left: calc(50% - 1040px / 2);
+  top: 0px;
+  bottom: 0px;
+}
+
+.home__title {
+  position: absolute;
+  width: 217px;
+  height: 52px;
+  left: calc(50% - 217px / 2 + 0.5px);
+  top: 220px;
+}
+
+.home__search {
+  position: absolute;
+  width: 686px;
+  height: 52px;
+  left: calc(50% - 686px / 2);
+  top: 312px;
+}
+
+.home__search-button {
+  position: absolute;
+  width: 150px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background: #1390e5;
+  border: 0;
+  font-size: 20px;
+}
+
+.home__input {
+  height: 52px;
+  width: 536px;
+  font-size: 20px;
+  padding: 15px 14px 15px 14px;
+}

@@ -21,10 +21,6 @@ const Navbar = () => {
 
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-      <Menu.Item>
-        <img src={LogoSvg} className="logo" alt="test" />
-      </Menu.Item>
-
       <Menu.Item key="mail" icon={<MailOutlined />}>
         <Link to="/">Поиск</Link>
       </Menu.Item>
