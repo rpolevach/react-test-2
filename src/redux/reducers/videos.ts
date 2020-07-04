@@ -27,6 +27,7 @@ const videos = (
         ...state,
         isFetching: false,
         isFetched: true,
+        videos: action.data,
       };
     case FETCH_VIDEOS_FAILURE:
       return {

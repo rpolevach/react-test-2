@@ -1,25 +1,31 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 
 import "./styled/home.css";
-import axios from "axios";
+import search from "../../redux/actions/youtubeActions";
+import { Redirect } from "react-router-dom";
 
-const Home = () => {
-  const [data, setData] = useState("");
+const Home = (props) => {
+  const [query, setQuery] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
-  const APIkey = "AIzaSyAH-v5rpoexEGJwe8PW4xVERS1gnkMAMww";
+  const handleSearch = (e) => {
+    e.preventDefault();
 
-  const onSearch = () => {
-    axios
-      .get(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${APIkey}&type=video&q=${data}`
-      )
-      .then((data) => {
-        console.log(data);
-      });
+    props.onSearch(query);
+
+    setRedirect(true);
+  };
+
+  const renderRedirect = () => {
+    if (redirect) {
+      return <Redirect to="/results" />;
+    }
   };
 
   return (
     <div className="home">
+      {renderRedirect()}
       <div className="home__search-container">
         <h1 className="home__title">Поиск видео</h1>
 
@@ -27,10 +33,10 @@ const Home = () => {
           <input
             className="home__input"
             placeholder="Что хотите посмотреть?"
-            onChange={(e) => setData(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
           ></input>
 
-          <button className="home__search-button" onClick={onSearch}>
+          <button className="home__search-button" onClick={handleSearch}>
             Найти
           </button>
         </div>
@@ -39,4 +45,10 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapDispatchToProps = (dispatch) => ({
+  onSearch: (query) => {
+    dispatch(search(query));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(Home);

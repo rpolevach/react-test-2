@@ -9,10 +9,36 @@ export interface GetVideos {
     | typeof FETCH_VIDEOS_REQUEST
     | typeof FETCH_VIDEOS_SUCCESS
     | typeof FETCH_VIDEOS_FAILURE;
+  data?: any;
+}
+
+interface Thumbnail {
+  height: number;
+  url: string;
+  width: number;
 }
 
 export interface Video {
-  id: string;
+  etag: string;
+  id: {
+    kind: string;
+    videoId: string;
+  };
+  kind: string;
+  snippet: {
+    channelId: string;
+    channelTitle: string;
+    description: string;
+    liveBroadcastContent: string;
+    publishTime: string;
+    publishedAt: string;
+    thumbnails: {
+      default: Thumbnail;
+      high: Thumbnail;
+      medium: Thumbnail;
+    };
+    title: string;
+  };
 }
 
 export interface VideosState {
