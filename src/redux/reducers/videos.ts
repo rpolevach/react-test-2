@@ -10,6 +10,7 @@ let videosDefaultState: VideosState = {
   isFetched: false,
   error: null,
   videos: [],
+  query: "",
 };
 
 const videos = (
@@ -27,12 +28,13 @@ const videos = (
         ...state,
         isFetching: false,
         isFetched: true,
-        videos: action.data,
+        videos: action.data.videos,
+        query: action.data.query,
       };
     case FETCH_VIDEOS_FAILURE:
       return {
         ...state,
-        error: null,
+        error: action.data,
       };
     default:
       return state;

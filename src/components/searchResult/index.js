@@ -1,8 +1,13 @@
 import React from "react";
+import { List, Card } from "antd";
+
+import { connect } from "react-redux";
 
 import "./styled/searchResults.css";
 
-const Results = () => {
+const { Meta } = Card;
+
+const Results = (props) => {
   return (
     <div className="results">
       <div className="results__results-container">
@@ -25,10 +30,34 @@ const Results = () => {
           </div>
         </div>
 
-        <div className="results__grid"></div>
+        <div className="results__grid">
+          <List
+            grid={{ gutter: 16, column: 4 }}
+            dataSource={props.videos.videos}
+            renderItem={(item) => (
+              <List.Item>
+                <iframe
+                  width="245px"
+                  height="138px"
+                  src={`https://www.youtube.com/embed/${item.id.videoId}`}
+                  frameBorder="0"
+                  allowFullScreen
+                ></iframe>
+                <div className="results__video-title">{item.snippet.title}</div>
+
+                <div className="results__channel-title">
+                  {item.snippet.channelTitle}
+                  <p>1000000 просмотров</p>
+                </div>
+              </List.Item>
+            )}
+          ></List>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Results;
+export default connect((state) => ({
+  videos: state.videos,
+}))(Results);

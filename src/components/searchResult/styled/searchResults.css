@@ -46,3 +46,19 @@
 .results__view-switcher {
   margin-left: auto;
 }
+
+.results__grid {
+  margin-top: 20px;
+}
+
+.results__video-title {
+  font-size: 14px;
+  font-weight: 500;
+  overflow: hidden;
+  height: 46px;
+}
+
+.results__channel-title {
+  font-size: 14px;
+  color: rgba(23, 23, 25, 0.3);
+}

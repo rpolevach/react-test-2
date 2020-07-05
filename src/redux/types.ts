@@ -46,6 +46,7 @@ export interface VideosState {
   isFetched: boolean;
   error: any;
   videos: Video[];
+  query: string;
 }
 
 export type VideosActions = GetVideos;

@@ -9,14 +9,30 @@ import {
 import { AppActions } from "../types";
 
 const search = (query: string) => async (dispatch: Dispatch<AppActions>) => {
+  let finalData = {
+    query: query,
+    videos: [],
+  };
+
   dispatch({ type: FETCH_VIDEOS_REQUEST, data: null });
 
   try {
-    const msg = await axios.get(
+    let msg = await axios.get(
       `${APIurl}search?part=snippet&key=${process.env.REACT_APP_API_KEY}&type=video&q=${query}`
     );
 
-    return dispatch({ type: FETCH_VIDEOS_SUCCESS, data: msg.data.items });
+    finalData.videos = msg.data.items;
+
+    msg.data.items.map(async (value: any, index: any) => {
+      let videoRequest = await axios.get(
+        `${APIurl}videos?part=statistics&id=${value.id.videoId}&key=${process.env.REACT_APP_API_KEY}`
+      );
+
+      msg.data.items[index].viewCount =
+        videoRequest.data.items.statistics.viewCount;
+    });
+
+    return dispatch({ type: FETCH_VIDEOS_SUCCESS, data: finalData });
   } catch (error) {
     return dispatch({ type: FETCH_VIDEOS_FAILURE, data: error });
   }
