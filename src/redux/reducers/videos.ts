@@ -11,6 +11,7 @@ let videosDefaultState: VideosState = {
   error: null,
   videos: [],
   query: "",
+  totalResults: 0,
 };
 
 const videos = (
@@ -30,6 +31,7 @@ const videos = (
         isFetched: true,
         videos: action.data.videos,
         query: action.data.query,
+        totalResults: action.data.totalResults,
       };
     case FETCH_VIDEOS_FAILURE:
       return {

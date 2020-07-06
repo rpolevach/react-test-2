@@ -39,6 +39,7 @@ export interface Video {
     };
     title: string;
   };
+  viewCount: string;
 }
 
 export interface VideosState {
@@ -47,6 +48,7 @@ export interface VideosState {
   error: any;
   videos: Video[];
   query: string;
+  totalResults: number;
 }
 
 export type VideosActions = GetVideos;
