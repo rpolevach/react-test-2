@@ -22,6 +22,7 @@
   width: 890px;
   height: 52px;
   font-size: 20px;
+  padding: 15px 14px 15px 14px;
 }
 
 .results__search-button {
@@ -61,4 +62,13 @@
 .results__channel-title {
   font-size: 14px;
   color: rgba(23, 23, 25, 0.3);
+}
+
+.results__grid-icon {
+  font-size: 18px;
+}
+
+.results__list-icon {
+  font-size: 18px;
+  margin-right: 20px;
 }

@@ -1,14 +1,31 @@
-import React, { useState } from "react";
-import { List, Card } from "antd";
-
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { List } from "antd";
+import { UnorderedListOutlined, AppstoreOutlined } from "@ant-design/icons";
+import Redirect from "react-router-dom/Redirect";
+import { connect, useSelector } from "react-redux";
 
 import "./styled/searchResults.css";
-
-const { Meta } = Card;
+import search from "../../redux/actions/youtubeActions";
 
 const Results = (props) => {
   const [isGrid, setLayout] = useState(false);
+  const [query, setQuery] = useState("");
+  const reduxQuery = useSelector((state) => state.videos.query);
+  const [redirect, setRedirect] = useState(false);
+
+  useEffect(() => {
+    if (reduxQuery) {
+      setQuery(reduxQuery);
+    }
+  }, [reduxQuery]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    props.onSearch(query);
+
+    setRedirect(true);
+  };
 
   const renderListOrGrid = () => {
     return isGrid ? (
@@ -23,6 +40,7 @@ const Results = (props) => {
               src={`https://www.youtube.com/embed/${item.video.id.videoId}`}
               frameBorder="0"
               allowFullScreen
+              title={item.video.id}
             ></iframe>
             <div className="results__video-title">
               {item.video.snippet.title}
@@ -46,7 +64,7 @@ const Results = (props) => {
               description={
                 <div>
                   <div>{item.video.snippet.channelTitle}</div>
-                  <div>{item.viewCount}</div>
+                  <div>{item.viewCount} просмотров</div>
                 </div>
               }
               avatar={
@@ -56,6 +74,7 @@ const Results = (props) => {
                   src={`https://www.youtube.com/embed/${item.video.id.videoId}`}
                   frameBorder="0"
                   allowFullScreen
+                  title={item.video.id}
                 ></iframe>
               }
             ></List.Item.Meta>
@@ -71,9 +90,16 @@ const Results = (props) => {
         <h2 className="results__title">Поиск видео</h2>
 
         <div className="results__search">
-          <input className="results__input"></input>
+          <input
+            className="results__input"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Что хотите посмотреть?"
+          ></input>
 
-          <button className="results__search-button">Найти</button>
+          <button className="results__search-button" onClick={handleSearch}>
+            Найти
+          </button>
         </div>
 
         <div className="results__filter-panel">
@@ -86,8 +112,15 @@ const Results = (props) => {
           </h3>
 
           <div className="results__view-switcher">
-            <button onClick={() => setLayout(true)}>grid</button>
-            <button onClick={() => setLayout(false)}>list</button>
+            <UnorderedListOutlined
+              className="results__list-icon"
+              onClick={() => setLayout(false)}
+            />
+
+            <AppstoreOutlined
+              className="results__grid-icon"
+              onClick={() => setLayout(true)}
+            />
           </div>
         </div>
 
@@ -97,6 +130,15 @@ const Results = (props) => {
   );
 };
 
-export default connect((state) => ({
-  videos: state.videos,
-}))(Results);
+const mapDispatchToProps = (dispatch) => ({
+  onSearch: (query) => {
+    dispatch(search(query));
+  },
+});
+
+export default connect(
+  (state) => ({
+    videos: state.videos,
+  }),
+  mapDispatchToProps
+)(Results);

@@ -27,10 +27,12 @@ const search = (query: string) => async (dispatch: Dispatch<AppActions>) => {
   dispatch({ type: FETCH_VIDEOS_REQUEST, data: null });
 
   try {
+
+
     let msg = await axios.get(
       `${APIurl}search?part=snippet&key=${
         process.env.REACT_APP_API_KEY
-      }&type=video&q=${query}&maxResults=${12}`
+      }&type=video&q=${query.replace(/ /g, "+")}&maxResults=${12}`
     );
 
     finalData.totalResults = msg.data.pageInfo.totalResults;

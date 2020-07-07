@@ -9,7 +9,7 @@ import rootReducer from "./reducers";
 const persistConfig = {
   key: "root",
   storage: storage,
-  // blacklist: ["videos"],
+  blacklist: ["videos"],
 };
 
 const persReducer = persistReducer(persistConfig, rootReducer);
