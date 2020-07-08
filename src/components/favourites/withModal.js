@@ -2,21 +2,29 @@ import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 
+import { createRequest } from "../../redux/actions/favouritesActions";
+
 function withModal(WrappedComponent) {
   return class extends React.Component {
     state = {
       visible: false,
       confirmLoading: false,
       disabled: false,
-      sliderValue: 50,
+      data: {
+        query: "",
+        name: "",
+        maxResults: 50,
+      },
     };
 
     static getDerivedStateFromProps(props, state) {
-      console.log(props, state);
-
       if (props.type === "create") {
         return {
-          create: { okText: "Сохранить", cancelText: "Не сохранять" },
+          create: {
+            okText: "Сохранить",
+            cancelText: "Не сохранять",
+          },
+          data: { ...state.data, query: props.videos.query },
         };
       } else {
         return {
@@ -26,7 +34,7 @@ function withModal(WrappedComponent) {
     }
 
     changeSlider = (e) => {
-      this.setState({ sliderValue: e });
+      this.setState({ data: { maxResults: e } });
     };
 
     showModal = () => {
@@ -36,7 +44,7 @@ function withModal(WrappedComponent) {
     };
 
     handleOk = () => {
-      this.setState({
+      /*this.setState({
         confirmLoading: true,
       });
       setTimeout(() => {
@@ -44,12 +52,31 @@ function withModal(WrappedComponent) {
           visible: false,
           confirmLoading: false,
         });
-      }, 2000);
+      }, 2000); */
+
+      this.props.createRequest(this.state.data);
+
+      this.setState({
+        // visible: false,
+      });
     };
 
     handleCancel = () => {
       this.setState({
         visible: false,
+      });
+    };
+
+    handleOnChange = (e) => {
+      const { name, value } = e.target;
+
+      this.setState((prevState) => {
+        return {
+          data: {
+            ...prevState.data,
+            [name]: value,
+          },
+        };
       });
     };
 
@@ -67,6 +94,7 @@ function withModal(WrappedComponent) {
           defaultQuery={this.props.videos.query}
           okText={create.okText || edit.okText}
           cancelText={create.cancelText || edit.cancelText}
+          handleOnChange={this.handleOnChange}
         />
       );
     }
@@ -77,6 +105,13 @@ const mapStateToProps = (state) => ({
   videos: state.videos,
 });
 
-const composedFieldWrapper = compose(connect(mapStateToProps, null), withModal);
+const mapPropsToDispatch = () => ({
+  createRequest,
+});
+
+const composedFieldWrapper = compose(
+  connect(mapStateToProps, { createRequest }),
+  withModal
+);
 
 export default composedFieldWrapper;

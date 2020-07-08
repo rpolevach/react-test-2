@@ -25,22 +25,29 @@ const FavouriteModal = (props) => {
             <Input
               value={props.defaultQuery}
               disabled={props.type === "create" ? true : false}
+              name="query"
             />
           </Form.Item>
           <Form.Item label="Название">
-            <Input placeholder="Укажите название" />
+            <Input
+              placeholder="Укажите название"
+              onChange={(e) => props.handleOnChange(e)}
+              name="name"
+            />
           </Form.Item>
           <Form.Item>
             <Slider
-              defaultValue={props.sliderValue}
+              defaultValue={props.data.maxResults}
               disabled={props.disabled}
               onChange={props.changeSlider}
-              value={props.sliderValue}
+              value={props.data.maxResults}
+              name="maxResults"
             />
 
             <Input
-              value={props.sliderValue}
+              value={props.data.maxResults}
               onChange={(e) => props.changeSlider(e.target.value)}
+              name="maxResults"
             />
           </Form.Item>
         </Form>

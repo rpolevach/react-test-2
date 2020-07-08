@@ -2,6 +2,9 @@ import {
   FETCH_VIDEOS_REQUEST,
   FETCH_VIDEOS_SUCCESS,
   FETCH_VIDEOS_FAILURE,
+  CREATE_REQUEST,
+  EDIT_REQUEST,
+  DELETE_REQUEST,
 } from "./constants";
 
 export interface GetVideos {
@@ -53,4 +56,25 @@ export interface VideosState {
 
 export type VideosActions = GetVideos;
 
-export type AppActions = VideosActions;
+export interface Request {
+  query: string;
+  name: string;
+  maxResults: number;
+}
+
+interface CreateRequest {
+  type: typeof CREATE_REQUEST;
+  data: Request;
+}
+
+interface EditRequest {
+  type: typeof EDIT_REQUEST;
+}
+
+interface DeleteRequest {
+  type: typeof DELETE_REQUEST;
+}
+
+export type RequestActions = CreateRequest | EditRequest | DeleteRequest;
+
+export type AppActions = VideosActions | RequestActions;
