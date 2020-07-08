@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { List } from "antd";
 import { UnorderedListOutlined, AppstoreOutlined } from "@ant-design/icons";
-import Redirect from "react-router-dom/Redirect";
 import { connect, useSelector } from "react-redux";
 
 import "./styled/searchResults.css";
 import search from "../../redux/actions/youtubeActions";
+import FavouriteModal from "../favourites/FavouriteModal";
 
 const Results = (props) => {
   const [isGrid, setLayout] = useState(false);
   const [query, setQuery] = useState("");
   const reduxQuery = useSelector((state) => state.videos.query);
-  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     if (reduxQuery) {
@@ -23,8 +22,6 @@ const Results = (props) => {
     e.preventDefault();
 
     props.onSearch(query);
-
-    setRedirect(true);
   };
 
   const renderListOrGrid = () => {
@@ -96,6 +93,8 @@ const Results = (props) => {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Что хотите посмотреть?"
           ></input>
+
+          <FavouriteModal type="create" />
 
           <button className="results__search-button" onClick={handleSearch}>
             Найти

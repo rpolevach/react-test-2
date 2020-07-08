@@ -27,8 +27,6 @@ const search = (query: string) => async (dispatch: Dispatch<AppActions>) => {
   dispatch({ type: FETCH_VIDEOS_REQUEST, data: null });
 
   try {
-
-
     let msg = await axios.get(
       `${APIurl}search?part=snippet&key=${
         process.env.REACT_APP_API_KEY

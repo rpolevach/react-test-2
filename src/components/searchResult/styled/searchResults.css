@@ -16,6 +16,19 @@
 .results__search {
   height: 52px;
   margin-top: 12px;
+  position: relative;
+  display: flex;
+}
+
+.results__heart-icon {
+  position: absolute;
+  top: 18px;
+  right: 175px;
+  font-size: 18px;
+}
+
+.results__heart-icon:active {
+  color: red;
 }
 
 .results__input {
