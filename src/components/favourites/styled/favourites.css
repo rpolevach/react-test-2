@@ -1,0 +1,32 @@
+.favourites__favourites-container {
+  position: absolute;
+  width: 1040px;
+  left: calc(50% - 1040px / 2);
+  top: 47px;
+  bottom: 0px;
+}
+
+.favourites__title {
+  font-size: 28px;
+  margin-top: 40px;
+}
+
+.favourites__list-item {
+  z-index: 2;
+}
+
+.favourites__button {
+  opacity: 0;
+}
+
+.favourites__edit-button {
+  margin-left: auto;
+}
+
+.favourites__list-item:hover .favourites__button {
+  opacity: 1;
+}
+
+.favourites__list-item:hover {
+  background: #f1f1f1;
+}

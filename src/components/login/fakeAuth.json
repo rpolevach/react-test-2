@@ -6,7 +6,15 @@
         },
         {
             "username": "test",
-            "password": "test"
+            "password": "test",
+            "requests": [
+                {
+                    "query": "wide",
+                    "name": "test",
+                    "maxResults": 15
+                }
+            ]
+            
         },
         {
             "username": "qwe",

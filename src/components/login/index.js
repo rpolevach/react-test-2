@@ -3,11 +3,13 @@ import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import jwt from "jsonwebtoken";
+import { connect } from "react-redux";
 
 import "antd/dist/antd.css";
 import "./styled/login.css";
 import LogoSvg from "./styled/logo.svg";
 import fakeAuth from "./fakeAuth.json";
+import { setUser } from "../../redux/actions/usersActions";
 
 const Login = (props) => {
   const [data, setData] = useState({
@@ -19,8 +21,6 @@ const Login = (props) => {
     let isUserExist = false;
 
     let users = fakeAuth.users;
-
-    setData({ username: values.username, password: values.password });
 
     users.forEach((value) => {
       if (
@@ -40,6 +40,8 @@ const Login = (props) => {
         "secretkey"
       );
 
+      props.setUser(data.username);
+
       localStorage.setItem("user", token);
       props.history.push("/");
     }
@@ -57,6 +59,11 @@ const Login = (props) => {
         rules={[{ required: true, message: "Please input your Username!" }]}
       >
         <Input
+          onChange={(e) =>
+            setData((prevState) => {
+              return { ...prevState, username: e.target.value };
+            })
+          }
           prefix={<UserOutlined className="site-form-item-icon" />}
           placeholder="Username"
         />
@@ -68,6 +75,11 @@ const Login = (props) => {
         rules={[{ required: true, message: "Please input your Password!" }]}
       >
         <Input
+          onChange={(e) =>
+            setData((prevState) => {
+              return { ...prevState, password: e.target.value };
+            })
+          }
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
@@ -83,4 +95,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default connect(null, { setUser })(Login);

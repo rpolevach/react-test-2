@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,7 @@ import {
 
 import Login from "./components/login/index";
 import Home from "./components/home/index";
-import Favourites from "./components/favourites";
+import Favourites from "./components/favourites/index";
 import Navbar from "./components/navbar";
 import Results from "./components/searchResult";
 
@@ -57,16 +57,38 @@ const IsAuthRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-const App = () => (
-  <Router>
-    <IsAuthRoute exact path="/login" component={Login} />
+const App = () => {
+  useEffect(() => {
+    if (!localStorage.getItem("db")) {
+      localStorage.setItem(
+        "db",
+        JSON.stringify([
+          {
+            username: "test",
+            requests: [
+              {
+                query: "wide",
+                name: "test",
+                maxResults: 15,
+              },
+            ],
+          },
+        ])
+      );
+    }
+  }, []);
 
-    <Switch>
-      <AuthRoute exact path="/" component={Home} />
-      <AuthRoute exact path="/fav" component={Favourites} />
-      <AuthRoute exact path="/results" component={Results} />
-    </Switch>
-  </Router>
-);
+  return (
+    <Router>
+      <IsAuthRoute exact path="/login" component={Login} />
+
+      <Switch>
+        <AuthRoute exact path="/" component={Home} />
+        <AuthRoute exact path="/fav" component={Favourites} />
+        <AuthRoute exact path="/results" component={Results} />
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;

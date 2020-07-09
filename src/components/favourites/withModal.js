@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 
 import { createRequest } from "../../redux/actions/favouritesActions";
+import fakeAuth from "../login/fakeAuth.json";
+import { findUser, addRequestToUser } from "../utils/findUser";
 
 function withModal(WrappedComponent) {
   return class extends React.Component {
@@ -13,7 +15,7 @@ function withModal(WrappedComponent) {
       data: {
         query: "",
         name: "",
-        maxResults: 50,
+        maxResults: 25,
       },
     };
 
@@ -44,20 +46,10 @@ function withModal(WrappedComponent) {
     };
 
     handleOk = () => {
-      /*this.setState({
-        confirmLoading: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          visible: false,
-          confirmLoading: false,
-        });
-      }, 2000); */
-
-      this.props.createRequest(this.state.data);
+      addRequestToUser(this.props.user.username, this.state.data);
 
       this.setState({
-        // visible: false,
+        visible: false,
       });
     };
 
@@ -103,6 +95,7 @@ function withModal(WrappedComponent) {
 
 const mapStateToProps = (state) => ({
   videos: state.videos,
+  user: state.user,
 });
 
 const mapPropsToDispatch = () => ({
