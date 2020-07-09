@@ -6,15 +6,16 @@ import { Redirect } from "react-router-dom";
 import "./styled/favourites.css";
 import { findUser, deleteRequest } from "../utils/findUser";
 import search from "../../redux/actions/youtubeActions";
+import FavouriteModal from "./FavouriteModal";
 
 export const Favourites = (props) => {
   const [redirect, setRedirect] = useState(false);
   const user = useSelector((state) => state.user);
 
-  const handleSearch = (e, query) => {
+  const handleSearch = (e, requestData) => {
     e.preventDefault();
 
-    props.onSearch(query);
+    props.onSearch(requestData.query, requestData.maxResults);
 
     setRedirect(true);
   };
@@ -42,12 +43,8 @@ export const Favourites = (props) => {
             dataSource={findUser(user.username).requests}
             renderItem={(item) => (
               <List.Item className="favourites__list-item">
-                <div onClick={(e) => handleSearch(e, item.query)}>
-                  {item.name}
-                </div>
-                <button className="favourites__button favourites__edit-button">
-                  Изменить
-                </button>
+                <div onClick={(e) => handleSearch(e, item)}>{item.name}</div>
+                <FavouriteModal type="edit" request={item} />
                 <button
                   className="favourites__button favourites__delete-button"
                   onClick={() => onDelete(item.name)}

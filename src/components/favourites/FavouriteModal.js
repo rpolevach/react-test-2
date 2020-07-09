@@ -7,10 +7,20 @@ import withModal from "./withModal";
 const FavouriteModal = (props) => {
   return (
     <div>
-      <HeartOutlined
-        className="results__heart-icon"
-        onClick={props.showModal}
-      />
+      {props.type === "create" ? (
+        <HeartOutlined
+          className="results__heart-icon"
+          onClick={props.showModal}
+        />
+      ) : (
+        <button
+          className="favourites__button favourites__edit-button"
+          onClick={props.showModal}
+        >
+          Изменить
+        </button>
+      )}
+
       <Modal
         title="Сохранить запрос"
         visible={props.visible}
@@ -26,6 +36,10 @@ const FavouriteModal = (props) => {
               value={props.defaultQuery}
               disabled={props.type === "create" ? true : false}
               name="query"
+              onChange={(e) => {
+                console.log(e.target.value);
+                props.handleOnChange(e);
+              }}
             />
           </Form.Item>
           <Form.Item label="Название">
@@ -33,6 +47,7 @@ const FavouriteModal = (props) => {
               placeholder="Укажите название"
               onChange={(e) => props.handleOnChange(e)}
               name="name"
+              value={props.defaultName}
             />
           </Form.Item>
           <Form.Item>

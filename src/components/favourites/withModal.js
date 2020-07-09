@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 
 import { createRequest } from "../../redux/actions/favouritesActions";
-import fakeAuth from "../login/fakeAuth.json";
-import { findUser, addRequestToUser } from "../utils/findUser";
+import { addRequestToUser, editRequest, findUser } from "../utils/findUser";
 
 function withModal(WrappedComponent) {
   return class extends React.Component {
@@ -17,9 +16,12 @@ function withModal(WrappedComponent) {
         name: "",
         maxResults: 25,
       },
+      originalRequestName: "",
     };
 
     static getDerivedStateFromProps(props, state) {
+      console.log("getDerivedStateFromProps");
+
       if (props.type === "create") {
         return {
           create: {
@@ -29,14 +31,34 @@ function withModal(WrappedComponent) {
           data: { ...state.data, query: props.videos.query },
         };
       } else {
-        return {
-          edit: { okText: "Изменить", cancelText: "Не изменять" },
-        };
+        if (!state.edit) {
+          console.log("asd");
+          return {
+            edit: { okText: "Изменить", cancelText: "Не изменять" },
+            data: {
+              ...props.request,
+            },
+            originalRequestName: props.request.name,
+          };
+        } else {
+          return {
+            edit: { okText: "Изменить", cancelText: "Не изменять" },
+          };
+        }
       }
     }
 
     changeSlider = (e) => {
-      this.setState({ data: { maxResults: e } });
+      console.log(e);
+
+      this.setState((prevState) => {
+        return {
+          data: {
+            ...prevState.data,
+            maxResults: e,
+          },
+        };
+      });
     };
 
     showModal = () => {
@@ -46,11 +68,19 @@ function withModal(WrappedComponent) {
     };
 
     handleOk = () => {
-      addRequestToUser(this.props.user.username, this.state.data);
+      this.props.type === "create"
+        ? addRequestToUser(this.props.user.username, this.state.data)
+        : editRequest(
+            this.props.user.username,
+            this.state.data,
+            this.state.originalRequestName
+          );
 
       this.setState({
         visible: false,
       });
+
+      document.location.reload();
     };
 
     handleCancel = () => {
@@ -61,6 +91,8 @@ function withModal(WrappedComponent) {
 
     handleOnChange = (e) => {
       const { name, value } = e.target;
+
+      console.log(value);
 
       this.setState((prevState) => {
         return {
@@ -83,9 +115,12 @@ function withModal(WrappedComponent) {
           handleOk={this.handleOk}
           handleCancel={this.handleCancel}
           changeSlider={this.changeSlider}
-          defaultQuery={this.props.videos.query}
-          okText={create.okText || edit.okText}
-          cancelText={create.cancelText || edit.cancelText}
+          defaultQuery={this.state.data.query}
+          defaultName={this.state.data.name}
+          okText={this.props.type === "create" ? create.okText : edit.okText}
+          cancelText={
+            this.props.type === "create" ? create.cancelText : edit.cancelText
+          }
           handleOnChange={this.handleOnChange}
         />
       );

@@ -71,6 +71,11 @@ const App = () => {
                 name: "test",
                 maxResults: 15,
               },
+              {
+                query: "lol",
+                name: "test1",
+                maxResults: 50,
+              },
             ],
           },
         ])
