@@ -12,21 +12,28 @@ export const addRequestToUser = (
 ) => {
   let allData = JSON.parse(localStorage.getItem("db") || "{}");
 
+  let foundComparisons: any = [];
+
   allData.forEach((element: any) => {
     if (element.username === username) {
-      let foundComparisons = element.requests.filter((value: any) => {
+      foundComparisons = element.requests.filter((value: any) => {
         return data.name === value.name;
       });
 
       console.log(foundComparisons);
 
       if (foundComparisons.length === 0) {
-        element.requests.push(data);
+        return element.requests.push(data);
       }
     }
   });
 
-  return localStorage.setItem("db", JSON.stringify(allData));
+  console.log(foundComparisons);
+  console.log(allData);
+
+  return foundComparisons.length === 0
+    ? localStorage.setItem("db", JSON.stringify(allData))
+    : false;
 };
 
 export const deleteRequest = (username: string, name: string) => {

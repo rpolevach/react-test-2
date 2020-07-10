@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { List } from "antd";
+import { List, Popover } from "antd";
 import { UnorderedListOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { connect, useSelector } from "react-redux";
 
 import "./styled/searchResults.css";
 import search from "../../redux/actions/youtubeActions";
 import FavouriteModal from "../favourites/FavouriteModal";
+import { popoverCreate, popoverAlreadyExists } from "./styled/popover";
 
 const Results = (props) => {
   const [isGrid, setLayout] = useState(false);
   const [query, setQuery] = useState("");
+  const [isPopVisible, setVisible] = useState(false);
+  const [popContent, setPopContent] = useState(true);
   const reduxQuery = useSelector((state) => state.videos.query);
 
   useEffect(() => {
@@ -22,6 +25,16 @@ const Results = (props) => {
     e.preventDefault();
 
     props.onSearch(query);
+  };
+
+  const handleVisibleChange = (visible) => {
+    setVisible((prevState) => {
+      return { ...prevState, visible };
+    });
+
+    setTimeout(() => {
+      setVisible(false);
+    }, 3000);
   };
 
   const renderListOrGrid = () => {
@@ -94,7 +107,17 @@ const Results = (props) => {
             placeholder="Что хотите посмотреть?"
           ></input>
 
-          <FavouriteModal type="create" />
+          <Popover
+            content={popContent ? popoverCreate : popoverAlreadyExists}
+            onVisibleChange={handleVisibleChange}
+            visible={isPopVisible}
+          />
+
+          <FavouriteModal
+            type="create"
+            handleVisibleChange={handleVisibleChange}
+            setPopContent={setPopContent}
+          />
 
           <button className="results__search-button" onClick={handleSearch}>
             Найти

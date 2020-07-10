@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 
 import { createRequest } from "../../redux/actions/favouritesActions";
-import { addRequestToUser, editRequest, findUser } from "../utils/findUser";
+import { addRequestToUser, editRequest } from "../utils/findUser";
 
 function withModal(WrappedComponent) {
   return class extends React.Component {
@@ -68,19 +68,27 @@ function withModal(WrappedComponent) {
     };
 
     handleOk = () => {
-      this.props.type === "create"
-        ? addRequestToUser(this.props.user.username, this.state.data)
-        : editRequest(
-            this.props.user.username,
-            this.state.data,
-            this.state.originalRequestName
-          );
+      let checker = true;
+
+      checker =
+        this.props.type === "create"
+          ? addRequestToUser(this.props.user.username, this.state.data)
+          : editRequest(
+              this.props.user.username,
+              this.state.data,
+              this.state.originalRequestName
+            );
+
+      if (checker === false) {
+        console.log(checker);
+        this.props.setPopContent(false);
+      }
+
+      this.props.handleVisibleChange(true);
 
       this.setState({
         visible: false,
       });
-
-      document.location.reload();
     };
 
     handleCancel = () => {
@@ -91,8 +99,6 @@ function withModal(WrappedComponent) {
 
     handleOnChange = (e) => {
       const { name, value } = e.target;
-
-      console.log(value);
 
       this.setState((prevState) => {
         return {
@@ -131,10 +137,6 @@ function withModal(WrappedComponent) {
 const mapStateToProps = (state) => ({
   videos: state.videos,
   user: state.user,
-});
-
-const mapPropsToDispatch = () => ({
-  createRequest,
 });
 
 const composedFieldWrapper = compose(

@@ -85,3 +85,9 @@
   font-size: 18px;
   margin-right: 20px;
 }
+
+.ant-popover {
+  font-size: 16px;
+  left: calc(50% + 1075px / 7) !important;
+  top: 73px !important;
+}
