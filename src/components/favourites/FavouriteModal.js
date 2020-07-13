@@ -6,7 +6,7 @@ import withModal from "./withModal";
 
 const FavouriteModal = (props) => {
   return (
-    <div>
+    <div className="modal">
       {props.type === "create" ? (
         <HeartOutlined
           className="results__heart-icon"
@@ -29,6 +29,7 @@ const FavouriteModal = (props) => {
         confirmLoading={props.confirmLoading}
         onCancel={props.handleCancel}
         cancelText={props.cancelText}
+        maskStyle={{ background: "#75C7FF", opacity: 0.8 }}
       >
         <Form layout="vertical">
           <Form.Item label="Запрос">

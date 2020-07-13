@@ -17,10 +17,19 @@
 
 .favourites__button {
   opacity: 0;
+  font-size: 14px;
 }
 
 .favourites__edit-button {
-  margin-left: auto;
+  outline: none;
+  border: none;
+  color: #1390e5;
+}
+
+.favourites__delete-button {
+  outline: none;
+  border: none;
+  color: #ff0000;
 }
 
 .favourites__list-item:hover .favourites__button {
@@ -29,4 +38,13 @@
 
 .favourites__list-item:hover {
   background: #f1f1f1;
+}
+
+.modal {
+  margin-left: auto;
+}
+
+.favourites__item-name {
+  font-size: 16px;
+  font-weight: 500;
 }

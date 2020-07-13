@@ -47,7 +47,12 @@ export const Favourites = (props) => {
             dataSource={findUser(user.username).requests}
             renderItem={(item) => (
               <List.Item className="favourites__list-item">
-                <div onClick={(e) => handleSearch(e, item)}>{item.name}</div>
+                <div
+                  onClick={(e) => handleSearch(e, item)}
+                  className="favourites__item-name"
+                >
+                  {item.name}
+                </div>
                 <FavouriteModal type="edit" request={item} />
                 <button
                   className="favourites__button favourites__delete-button"

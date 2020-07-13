@@ -3,14 +3,12 @@ import { Menu } from "antd";
 import { MailOutlined, AppstoreOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
-import LogoSvg from "../login/styled/logo.svg";
 import "./styled/navbar.css";
 
 const Navbar = () => {
   const [current, setCurrent] = useState("mail");
 
   const handleClick = (e) => {
-    console.log("click ", e);
     setCurrent(e.key);
   };
 

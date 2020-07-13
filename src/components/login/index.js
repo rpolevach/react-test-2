@@ -56,7 +56,7 @@ const Login = (props) => {
       <Form.Item
         className="form-input"
         name="username"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: "Пожалуйста, введите логин!" }]}
       >
         <Input
           onChange={(e) =>
@@ -65,16 +65,16 @@ const Login = (props) => {
             })
           }
           prefix={<UserOutlined className="site-form-item-icon" />}
-          placeholder="Username"
+          placeholder="Логин"
         />
       </Form.Item>
 
       <Form.Item
         className="form-input"
         name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: "Пожалуйста, введите пароль!" }]}
       >
-        <Input
+        <Input.Password
           onChange={(e) =>
             setData((prevState) => {
               return { ...prevState, password: e.target.value };
@@ -82,7 +82,7 @@ const Login = (props) => {
           }
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
-          placeholder="Password"
+          placeholder="Пароль"
         />
       </Form.Item>
 
