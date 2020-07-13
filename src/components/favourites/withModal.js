@@ -15,6 +15,7 @@ function withModal(WrappedComponent) {
         query: "",
         name: "",
         maxResults: 25,
+        order: "relevance",
       },
       originalRequestName: "",
     };
@@ -32,7 +33,6 @@ function withModal(WrappedComponent) {
         };
       } else {
         if (!state.edit) {
-          console.log("asd");
           return {
             edit: { okText: "Изменить", cancelText: "Не изменять" },
             data: {
@@ -82,9 +82,9 @@ function withModal(WrappedComponent) {
       if (checker === false) {
         console.log(checker);
         this.props.setPopContent(false);
-      }
 
-      this.props.handleVisibleChange(true);
+        this.props.handleVisibleChange(true);
+      }
 
       this.setState({
         visible: false,
@@ -110,6 +110,17 @@ function withModal(WrappedComponent) {
       });
     };
 
+    handleSelect = (e) => {
+      this.setState((prevState) => {
+        return {
+          data: {
+            ...prevState.data,
+            order: e,
+          },
+        };
+      });
+    };
+
     render() {
       const { create, edit } = this.state;
 
@@ -123,11 +134,13 @@ function withModal(WrappedComponent) {
           changeSlider={this.changeSlider}
           defaultQuery={this.state.data.query}
           defaultName={this.state.data.name}
+          defaultOrder={this.state.data.order}
           okText={this.props.type === "create" ? create.okText : edit.okText}
           cancelText={
             this.props.type === "create" ? create.cancelText : edit.cancelText
           }
           handleOnChange={this.handleOnChange}
+          handleSelect={this.handleSelect}
         />
       );
     }

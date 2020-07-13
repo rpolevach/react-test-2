@@ -15,7 +15,11 @@ export const Favourites = (props) => {
   const handleSearch = (e, requestData) => {
     e.preventDefault();
 
-    props.onSearch(requestData.query, requestData.maxResults);
+    props.onSearch(
+      requestData.query,
+      requestData.maxResults,
+      requestData.order
+    );
 
     setRedirect(true);
   };
@@ -61,8 +65,8 @@ export const Favourites = (props) => {
 };
 
 const mapPropsToDispatch = (dispatch) => ({
-  onSearch: (username) => {
-    dispatch(search(username));
+  onSearch: (username, maxResults, order) => {
+    dispatch(search(username, maxResults, order));
   },
 });
 

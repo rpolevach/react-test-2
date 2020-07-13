@@ -17,7 +17,7 @@ interface FinalData {
   totalResults: number;
 }
 
-const search = (query: string, maxResults = 12) => async (
+const search = (query: string, maxResults = 12, order = "relevance") => async (
   dispatch: Dispatch<AppActions>
 ) => {
   let finalData: FinalData = {
@@ -32,7 +32,10 @@ const search = (query: string, maxResults = 12) => async (
     let msg = await axios.get(
       `${APIurl}search?part=snippet&key=${
         process.env.REACT_APP_API_KEY
-      }&type=video&q=${query.replace(/ /g, "+")}&maxResults=${maxResults}`
+      }&type=video&q=${query.replace(
+        / /g,
+        "+"
+      )}&maxResults=${maxResults}&order=${order}`
     );
 
     finalData.totalResults = msg.data.pageInfo.totalResults;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Form, Input, Slider } from "antd";
+import { Modal, Form, Input, Slider, Select } from "antd";
 import { HeartOutlined } from "@ant-design/icons";
 
 import withModal from "./withModal";
@@ -50,6 +50,22 @@ const FavouriteModal = (props) => {
               value={props.defaultName}
             />
           </Form.Item>
+
+          <Form.Item label="Сортировать по">
+            <Select
+              defaultValue="relevance"
+              onChange={(e) => props.handleSelect(e)}
+              value={props.defaultOrder}
+            >
+              <Select.Option value="relevance">актуальности</Select.Option>
+              <Select.Option value="date">дате</Select.Option>
+              <Select.Option value="rating">ретингу</Select.Option>
+              <Select.Option value="title">названию</Select.Option>
+              <Select.Option value="videoCount">кол-ву видео</Select.Option>
+              <Select.Option value="viewCount">просмотрам</Select.Option>
+            </Select>
+          </Form.Item>
+
           <Form.Item>
             <Slider
               defaultValue={props.data.maxResults}

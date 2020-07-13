@@ -70,11 +70,13 @@ const App = () => {
                 query: "wide",
                 name: "test",
                 maxResults: 15,
+                order: "relevance",
               },
               {
                 query: "lol",
                 name: "test1",
                 maxResults: 50,
+                order: "date",
               },
             ],
           },
