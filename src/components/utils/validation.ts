@@ -12,8 +12,6 @@ const validaiton = (data: { username: string; password: string }) => {
     errors.password = "This field is required";
   }
 
-  console.log(errors);
-
   return {
     isValid: isEmpty(errors),
   };

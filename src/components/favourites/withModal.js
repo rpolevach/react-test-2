@@ -21,7 +21,6 @@ function withModal(WrappedComponent) {
     };
 
     static getDerivedStateFromProps(props, state) {
-      console.log("getDerivedStateFromProps");
 
       if (props.type === "create") {
         return {
@@ -49,7 +48,6 @@ function withModal(WrappedComponent) {
     }
 
     changeSlider = (e) => {
-      console.log(e);
 
       this.setState((prevState) => {
         return {
@@ -80,11 +78,12 @@ function withModal(WrappedComponent) {
             );
 
       if (checker === false) {
-        console.log(checker);
         this.props.setPopContent(false);
 
         this.props.handleVisibleChange(true);
       }
+
+      this.props.handleVisibleChange(true);
 
       this.setState({
         visible: false,

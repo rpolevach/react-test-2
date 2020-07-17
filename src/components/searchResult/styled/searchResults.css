@@ -36,6 +36,7 @@
   height: 52px;
   font-size: 20px;
   padding: 15px 14px 15px 14px;
+  border: 1px solid #1390E5;
 }
 
 .results__search-button {
@@ -90,4 +91,8 @@
   font-size: 16px;
   left: calc(50% + 1075px / 7) !important;
   top: 73px !important;
+}
+
+.results__input:focus {
+  background: rgba(197, 228, 249, 0.3);
 }

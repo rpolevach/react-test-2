@@ -38,7 +38,6 @@ const FavouriteModal = (props) => {
               disabled={props.type === "create" ? true : false}
               name="query"
               onChange={(e) => {
-                console.log(e.target.value);
                 props.handleOnChange(e);
               }}
             />

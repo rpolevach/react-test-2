@@ -41,7 +41,7 @@ const search = (query: string, maxResults = 12, order = "relevance") => async (
     finalData.totalResults = msg.data.pageInfo.totalResults;
 
     msg.data.items.map((value: Video) => {
-      finalData.videos.push(factoryMethod(value));
+      return finalData.videos.push(factoryMethod(value));
     });
 
     await Promise.all(
