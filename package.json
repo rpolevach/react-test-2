@@ -10,7 +10,7 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/react-router-dom": "^5.1.5",
     "antd": "^4.4.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
